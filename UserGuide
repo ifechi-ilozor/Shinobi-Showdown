@@ -1,0 +1,76 @@
+User Guide:
+
+The Game opens with a Start screen. There is an image of Naruto and Sasuke, a Go Button and four 
+Radio Buttons (two under each image) that allow the player to choose how they want to play. The 
+player can choose multiplayer, so both characters are controlled by key input, or single player, 
+where one player is controlled by key input and the other is controlled by the computer. Only one player 
+can be the computer.
+
+Ex. Naruto → Player & Sasuke → Player
+Naruto can be controlled with up, down, left, right keys for movement & 
+space for attack & enter for super attack
+Sasuke can be controlled with "a" for left, "d" for right, "s" for down, "w" for up movements 
+& Tab for attack & "r" for super attack
+
+Ex. Naruto → Player & Sasuke → Computer
+Naruto is the same as above & Sasuke is controlled by the computer
+
+Ex. Naruto → Computer & Sasuke → Sasuke
+Sasuke can be controlled with up, down, left, right keys for movement 
+& space for attack & enter for super attack
+Naruto is controlled by the computer 
+
+Being controlled by the computer allows for diagonal movement, 
+while key input does not.
+
+When the player presses the Go Button, the Start screen disappears and the characters start 
+in their initial positions (the same every time, opposite ends of the screen).
+
+When the game starts, there are health bars and health numbers and super attack bars for each character. 
+The health bars and health numbers only change when the character loses chakra, either by getting 
+hit by an attack or super attack, or by making an attack or super attack. 
+
+The actual attack is just an image that shows up (a fireball, a razengan, a razenshuriken, 
+or a chidori). The attack image will move with the attacking character if the character is moving, 
+for the duration that the image is shown. The attack image disappears after its duration.
+
+The super attack bar starts filling up as soon as the game starts (it fills completely after 20 seconds), 
+and when the bar is full, a label that says “Super!” pops up for one second to give an extra reminder. 
+When the character makes a super attack, the bar empties and then starts filling up immediately after.
+If the character doesn’t use the super attack right after the bar fills up, the bar stays full until
+they do.
+
+For attacks, the character can only attack every 3 seconds (this makes sure the attack disappears and that
+playing against the computer is fair).
+
+There are certain attack ranges for attack and super attack. To get hit by an attack, 
+the receiving character must be no more than 240 pixels away from the attacking character, 
+and 600 pixels away for a super attack. A received attack will result in losing 10 Chakra 
+(displayed in the health bar and the health number) and a received super attack results in 
+losing 20 Chakra. The attacking character will lose 2 Chakra every time they attack, 
+5 Chakra for super attack, regardless of whether the other character loses points. 
+A received regular or super attack will also make the receiving character fade out and then back in.
+
+Ex. Naruto uses attack & Sasuke is 100 pixels away
+Sasuke loses 10 Chakra, fades in, and fades out and Naruto loses 2 Chakra
+
+Ex. Sasuke uses super attack & Naruto is 800 pixels away
+Sasuke loses 5 Chakra and Naruto is unaffected
+
+A user can pause the game by pressing “p,” and unpause the game by pressing “p” again. 
+When any character hits 0 Chakra, a label saying “Game Over” appears, and another label appears 
+depending on who hit 0.
+
+Ex. Naruto hits 0 first
+A label under “Game Over” appears saying “Sasuke Wins!”
+
+Ex. Sasuke hits 0 first
+A label under “Game Over” appears saying “Naruto Wins!”
+
+Ex. They hit 0 at the same time
+A label under “Game Over” appears saying “Draw!”
+
+*A bit more on computer control:
+The computer control tries to mimic human player control. By using a queue and 
+several if statements to determine the computer’s action, the computer is not very predictable, 
+however, this can make playing against the computer hard at times and easier at others. 

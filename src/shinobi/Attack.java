@@ -20,8 +20,8 @@ public class Attack {
 		_shifty = shifty;
 		//storing the shift so that we can use it to keep the position relative to
 		//the character when the character moves
-		Image img1 = new Image(this.getClass().getResourceAsStream("razengan(1).png"));
-		Image img2 = new Image(this.getClass().getResourceAsStream("fireball(1).png"));
+		Image img1 = new Image(this.getClass().getResourceAsStream("/images/razengan(1).png"));
+		Image img2 = new Image(this.getClass().getResourceAsStream("/images/fireball(1).png"));
 		_viewAttack = new ImageView();
 		_viewAttack.setFitWidth(Constants.ATTACK);
 		_viewAttack.setFitHeight(Constants.ATTACK);

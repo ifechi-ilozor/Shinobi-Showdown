@@ -16,8 +16,8 @@ public class SuperAttack {
 		_root = root;
 		_shiftx = shiftx;
 		_shifty = shifty;
-		Image img1 = new Image(this.getClass().getResourceAsStream("razenshuriken(1).png"));
-		Image img2 = new Image(this.getClass().getResourceAsStream("chidori.png"));
+		Image img1 = new Image(this.getClass().getResourceAsStream("/images/razenshuriken(1).png"));
+		Image img2 = new Image(this.getClass().getResourceAsStream("/images/chidori.png"));
 		_viewSuperAttack = new ImageView();
 		_viewSuperAttack.setFitWidth(170);
 		_viewSuperAttack.setFitHeight(170);

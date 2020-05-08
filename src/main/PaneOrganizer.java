@@ -95,8 +95,8 @@ public class PaneOrganizer {
 		label.setFont(font);
 		label.setFocusTraversable(false);
 		_startPane.getChildren().add(label);
-		Image img1 = new Image(this.getClass().getResourceAsStream("narutoimage.png"));
-		Image img2 = new Image(this.getClass().getResourceAsStream("sasukeimage.png"));
+		Image img1 = new Image(this.getClass().getResourceAsStream("/images/narutoimage.png"));
+		Image img2 = new Image(this.getClass().getResourceAsStream("/images/sasukeimage.png"));
 		ImageView viewChar1 = new ImageView();
 		ImageView viewChar2 = new ImageView();
 		viewChar1.setImage(img1);

@@ -15,10 +15,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
-/** this class takes care of all functionality for any character. Characters 
- * are chosen based on what's passed in in the constructor. There is less
- * code repition with just one class, and having on class allows for the 
- * multiplayer aspect*/
+/** The Shinobi Class takes care of all functionality for any character.
+ */
 
 public class Shinobi {
 
@@ -52,9 +50,9 @@ public class Shinobi {
 		//and for CharacterIs variables, 0 means main & 1 means opponent
 		Image img = null;
 		if(whichChar == 0) {
-			img = new Image(this.getClass().getResourceAsStream("narutoimage.png"));
+			img = new Image(this.getClass().getResourceAsStream("/images/narutoimage.png"));
 		} else if(whichChar == 1) {
-			img = new Image(this.getClass().getResourceAsStream("sasukeimage.png"));
+			img = new Image(this.getClass().getResourceAsStream("/images/sasukeimage.png"));
 		}
 		_viewChar = new ImageView();
 		_viewChar.setImage(img);
@@ -351,7 +349,7 @@ public class Shinobi {
 	
 	//basic movement methods and if statements to keep the character in bounds
 	public void moveRight() {
-		if((_loc[0] + Constants.STEP) >= 0 && (_loc[0] + Constants.STEP) <= Constants.ROOT_BOUNDX) {
+		if ((_loc[0] + Constants.STEP) >= 0 && (_loc[0] + Constants.STEP) <= Constants.ROOT_BOUNDX) {
 			_prevLoc = _loc;
 			_loc[0] += Constants.STEP;
 			_viewChar.setX(_loc[0]);
@@ -359,7 +357,7 @@ public class Shinobi {
 	}
 
 	public void moveLeft() {
-		if((_loc[0] - Constants.STEP) >= 0 && (_loc[0] - Constants.STEP) <= Constants.ROOT_BOUNDX) {
+		if ((_loc[0] - Constants.STEP) >= 0 && (_loc[0] - Constants.STEP) <= Constants.ROOT_BOUNDX) {
 			_prevLoc = _loc;
 			_loc[0] -= Constants.STEP;
 			_viewChar.setX(_loc[0]);
@@ -367,7 +365,7 @@ public class Shinobi {
 	}
 
 	public void moveUp() {
-		if((_loc[1] - Constants.STEP) >= Constants.START_W && (_loc[1] - Constants.STEP) <= Constants.ROOT_BOUNDY) {
+		if ((_loc[1] - Constants.STEP) >= Constants.START_W && (_loc[1] - Constants.STEP) <= Constants.ROOT_BOUNDY) {
 			_prevLoc = _loc;
 			_loc[1] -= Constants.STEP;
 			_viewChar.setY(_loc[1]);	
@@ -375,7 +373,7 @@ public class Shinobi {
 	}
 
 	public void moveDown() {
-		if((_loc[1] + Constants.STEP) >= Constants.START_W && (_loc[1] + Constants.STEP) <= Constants.ROOT_BOUNDY) {
+		if ((_loc[1] + Constants.STEP) >= Constants.START_W && (_loc[1] + Constants.STEP) <= Constants.ROOT_BOUNDY) {
 		_prevLoc = _loc;
 		_loc[1] += Constants.STEP;
 		_viewChar.setY(_loc[1]);	
@@ -406,7 +404,7 @@ public class Shinobi {
 
 	//basic movement methods but these are only employed if the char is the computer
 	public void topRight() {
-		if((_loc[1] - Constants.STEP) >= Constants.START_W 
+		if ((_loc[1] - Constants.STEP) >= Constants.START_W
 				&& (_loc[1] - Constants.STEP) <= Constants.ROOT_BOUNDY &&
 				(_loc[0] + Constants.STEP) >= 0 
 				&& (_loc[0] + Constants.STEP) <= Constants.ROOT_BOUNDX) {
@@ -419,7 +417,7 @@ public class Shinobi {
 	}
 
 	public void topLeft() {
-		if((_loc[1] - Constants.STEP) >= Constants.START_W 
+		if ((_loc[1] - Constants.STEP) >= Constants.START_W
 				&& (_loc[1] - Constants.STEP) <= Constants.ROOT_BOUNDY &&
 				(_loc[0] - Constants.STEP) >= 0 
 				&& (_loc[0] - Constants.STEP) <= Constants.ROOT_BOUNDX) {
@@ -432,7 +430,7 @@ public class Shinobi {
 	}
 
 	public void bottomRight() {
-		if((_loc[1] + Constants.STEP) >= Constants.START_W 
+		if ((_loc[1] + Constants.STEP) >= Constants.START_W
 				&& (_loc[1] + Constants.STEP) <= Constants.ROOT_BOUNDY &&
 				(_loc[0] + Constants.STEP) >= 0 
 				&& (_loc[0] + Constants.STEP) <= Constants.ROOT_BOUNDX) {
@@ -445,7 +443,7 @@ public class Shinobi {
 	}
 
 	public void bottomLeft() {
-		if((_loc[1] + Constants.STEP) >= Constants.START_W 
+		if ((_loc[1] + Constants.STEP) >= Constants.START_W
 				&& (_loc[1] + Constants.STEP) <= Constants.ROOT_BOUNDY &&
 				(_loc[0] - Constants.STEP) >= 0 
 				&& (_loc[0] - Constants.STEP) <= Constants.ROOT_BOUNDX) {
@@ -475,7 +473,7 @@ public class Shinobi {
 	}
 	
 	public boolean getAttack() {
-		if(_attackTimeline != null) {
+		if (_attackTimeline != null) {
 			if (_attackTimeline.getStatus() == Status.RUNNING) {
 				return true;
 			}
@@ -484,7 +482,7 @@ public class Shinobi {
 	}
 	
 	public boolean getSuper() {
-		if(_superTimeline != null) {
+		if (_superTimeline != null) {
 			if (_superTimeline.getStatus() == Status.RUNNING) {
 				return true;
 			}
@@ -498,4 +496,3 @@ public class Shinobi {
 	}
 	
 }
-

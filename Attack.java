@@ -4,18 +4,17 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
-/**Attack class. Not a lot of functionality, this class is mostly for the
- * graphical part of attacking */
-
+/**
+ * The Attack class. This class is mostly for
+ * the graphical part of attacking.
+ */
 public class Attack {
-
 	private ImageView _viewAttack;
 	private Pane _root;
 	private int _shiftx;
 	private int _shifty;
 	
 	public Attack(int a, int locx, int locy, int shiftx, int shifty, Pane root) {
-		
 		_root = root;
 		_shiftx = shiftx;  
 		_shifty = shifty;
@@ -33,8 +32,7 @@ public class Attack {
 		//0 & 1 here correspond to Naruto & Sasuke as opposed to main & opponent
 		if (a == 0) {
 			_viewAttack.setImage(img1);
-		}
-		if (a == 1) {
+		} else if (a == 1) {
 			_viewAttack.setImage(img2);
 		}
 		
@@ -50,8 +48,8 @@ public class Attack {
 	
 	//moving the attack with the character
 	public void moveWith(int[] charLoc) {
-		
 		_viewAttack.setX(charLoc[0] + _shiftx);
 		_viewAttack.setY(charLoc[1] + _shifty);
 	}
+
 }

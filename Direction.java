@@ -1,6 +1,9 @@
 package Indy;
 
-/**enum class has more meaning than just using strings to name directions */
+/**
+ * The Direction Enum Class has more meaning than
+ * just using strings to identify directions.
+ */
 
 public enum Direction {
 

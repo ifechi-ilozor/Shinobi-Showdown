@@ -1,7 +1,9 @@
 package Indy;
 
+/**
+ * The Constants Class holds the constants for the entire program.
+ */
 public class Constants {
-
 	public static final int OPEN_WIDTH = 1300;
 	public static final int OPEN_HEIGHT = 800;
 	public static final int SCENE_WIDTH = 600;
@@ -74,4 +76,5 @@ public class Constants {
 	public static final int SIDE_LIL = -20;
 	public static final double SEARCH_TIME = 0.5;
 	public static final int RUN_CYCLE = 8;
+
 }

@@ -18,11 +18,12 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.util.Duration;
 
-/** Large Game class takes care of all game logic including computer generated fighting, 
- * effects of attacks, pausing, gameOver, etc */
+/**
+ * The Fight Class handles all game logic including computer generated
+ * fighting, attack effects, pausing, game over, etc.
+ */
 
 public class Fight {
-
 	private Shinobi _main; 
 	private Shinobi _opponent; 
 	//Shinobi will either be opponent or main based on chosen mode
@@ -46,13 +47,12 @@ public class Fight {
 	private int _sasukeIs;
 	
 	public Fight(Pane root, Pane pointsRoot, Pane superRoot, int narutoIs, int sasukeIs) {
-		
 		_root = root;
 		_narutoIs = narutoIs;
 		_sasukeIs = sasukeIs;
 		_root.setFocusTraversable(true);
-	    superRoot.setFocusTraversable(false);
-	    pointsRoot.setFocusTraversable(false);
+		superRoot.setFocusTraversable(false);
+		pointsRoot.setFocusTraversable(false);
 		_label = new Label("PAUSE");
 		_label.setTextFill(Color.RED);
 		_label.setFocusTraversable(false);
@@ -64,135 +64,126 @@ public class Fight {
 		root.getChildren().add(_label);
 		_label.setVisible(false); //setting up pause label
 		_timeline = null;
-	    _runTimeline = null;
-	    _overTimeline = null;
-	    _otherKeyHandler = null;
-	    _moveOrNot = true;
-	    _unpredictable = 1;
-	    _pause = false;
-	    _mainChakra = Constants.FULL;
+		_runTimeline = null;
+		_overTimeline = null;
+		_otherKeyHandler = null;
+		_moveOrNot = true;
+		_unpredictable = 1;
+		_pause = false;
+		_mainChakra = Constants.FULL;
 		_opponentChakra = Constants.FULL; 
 		_choices = new Queue<Integer>();
 		_directionNames = new ArrayList<Direction>();
 		_keyHandler = new KeyHandler();
 		root.addEventHandler(KeyEvent.KEY_PRESSED, _keyHandler);
-		if(narutoIs == 0 && sasukeIs == 0) {
+		if (narutoIs == 0 && sasukeIs == 0) {
 			_main = new Shinobi(root, Constants.STEP, Constants.NSY, 0, superRoot);
 			_opponent = new Shinobi(root, Constants.SSX, Constants.ROOT_LOWBOUNDY, 1, superRoot);
 			_otherKeyHandler = new OtherKeyHandler();
 			root.addEventHandler(KeyEvent.KEY_PRESSED, _otherKeyHandler);
 			_chakras = new LifePoints(pointsRoot, 0, 0);
-		}
-		if(narutoIs == 0 && sasukeIs == 1) {
+		} else if (narutoIs == 0 && sasukeIs == 1) {
 			_main = new Shinobi(root, Constants.STEP, Constants.NSY, 0, superRoot);
 			_opponent = new Shinobi(root, Constants.SSX, Constants.ROOT_LOWBOUNDY, 1, superRoot);
 			this.setupTimeline();
 			_chakras = new LifePoints(pointsRoot, 0, 1);
-		}
-		if(narutoIs == 1 && sasukeIs == 0) {
+		} else if (narutoIs == 1 && sasukeIs == 0) {
 			_main = new Shinobi(root, Constants.STEP, Constants.NSY, 1, superRoot);
 			_opponent = new Shinobi(root, Constants.SSX, Constants.ROOT_LOWBOUNDY, 0, superRoot);
 			this.setupTimeline();
 			_chakras = new LifePoints(pointsRoot, 1, 0);
 		}
 		//setting up characters based on start screen
-	    this.setupOverTimeline();
-	    //always checking for gameOver
+		this.setupOverTimeline();
 	}
 	
-	//main keyHandler. Always Naruto unless naruto is slected to be computer
+	// Main keyHandler. Always Naruto unless Naruto is slected to be computer.
 	private class KeyHandler implements EventHandler<KeyEvent> {
 
-	    public KeyHandler() {
-	    }
-	
-	    @Override
-	    public void handle(KeyEvent event){
-	    	KeyCode keyPressed = event.getCode();
-	    		if(_pause && keyPressed == KeyCode.P) {
-	    			_pause = false;
-	    			Fight.this.pause();
-	    		}		 
-	    		else if(!_pause) {
-	    		switch (keyPressed) {
-	    		case RIGHT: 
-	    			_main.moveRight(); 
-	    			break;
-	    		case LEFT:
-	    			_main.moveLeft();
-	    			break;
-	    		case UP: 
-	    			_main.moveUp();
-	    			break;
-	    		case DOWN:
-	    			_main.moveDown();
-	    			break;
-	    		case SPACE:
-	    			if(_main.getCanAttack() == true) {
-	    				int[] place = Fight.this.attackSide(0, 0);
-	    				_main.attack(place);
-	    				Fight.this.loseOrNot(0, 0);
-	    			}
-	    			break;
-	    		case ENTER:
-	    			if(_main.getCanSuper() == true) {
-	    				int[] place1 = Fight.this.attackSide(0, 1);
-	    				_main.superAttack(place1);
-	    				Fight.this.loseOrNot(0, 1);
-	    			}
-	    			break;
-	    		case P:
-	    			_pause = true;
-	    			Fight.this.pause();
-	    			break;
-	    		}
-	    	}	
-	    	event.consume();
-	    }
+		@Override
+		public void handle(KeyEvent event){
+			KeyCode keyPressed = event.getCode();
+				if(_pause && keyPressed == KeyCode.P) {
+					_pause = false;
+					Fight.this.pause();
+				}
+				else if(!_pause) {
+				switch (keyPressed) {
+				case RIGHT:
+					_main.moveRight();
+					break;
+				case LEFT:
+					_main.moveLeft();
+					break;
+				case UP:
+					_main.moveUp();
+					break;
+				case DOWN:
+					_main.moveDown();
+					break;
+				case SPACE:
+					if(_main.getCanAttack() == true) {
+						int[] place = Fight.this.attackSide(0, 0);
+						_main.attack(place);
+						Fight.this.loseOrNot(0, 0);
+					}
+					break;
+				case ENTER:
+					if(_main.getCanSuper() == true) {
+						int[] place1 = Fight.this.attackSide(0, 1);
+						_main.superAttack(place1);
+						Fight.this.loseOrNot(0, 1);
+					}
+					break;
+				case P:
+					_pause = true;
+					Fight.this.pause();
+					break;
+				}
+			}
+			event.consume();
+		}
 	}
 	
-	//only used if multiplayer is selected. Sasuke always uses this keyHandler
+	// Only used if multiplayer is selected. Sasuke always uses this keyHandler.
 	private class OtherKeyHandler implements EventHandler<KeyEvent> {
 
-	    public OtherKeyHandler() {
-	    }
-	
-	    @Override
-	    public void handle(KeyEvent event){
-	    	KeyCode keyPressed = event.getCode();
-	    		switch (keyPressed) {
-	    		case D: 
-	    			_opponent.moveRight(); 
-	    			break;
-	    		case A:
-	    			_opponent.moveLeft();
-	    			break;
-	    		case W: 
-	    			_opponent.moveUp();
-	    			break;
-	    		case S:
-	    			_opponent.moveDown();
-	    			break;
-	    		case TAB:
-	    			if(_opponent.getCanAttack() == true) {	
-	    				int[] place = Fight.this.attackSide(1, 0);
-	    				_opponent.attack(place);
-	    				Fight.this.loseOrNot(1, 0);
-	    			}
-	    			break;
-	    		case R:
-	    			if(_opponent.getCanSuper() == true) {
-	    				int[] place1 = Fight.this.attackSide(1, 1);
-	    				_opponent.superAttack(place1);
-	    				Fight.this.loseOrNot(1, 1);
-	    			}
-	    			break;
-	    		}
-	    	event.consume();
-	    }
+		@Override
+		public void handle(KeyEvent event){
+			KeyCode keyPressed = event.getCode();
+				switch (keyPressed) {
+				case D:
+					_opponent.moveRight();
+					break;
+				case A:
+					_opponent.moveLeft();
+					break;
+				case W:
+					_opponent.moveUp();
+					break;
+				case S:
+					_opponent.moveDown();
+					break;
+				case TAB:
+					if(_opponent.getCanAttack() == true) {
+						int[] place = Fight.this.attackSide(1, 0);
+						_opponent.attack(place);
+						Fight.this.loseOrNot(1, 0);
+					}
+					break;
+				case R:
+					if(_opponent.getCanSuper() == true) {
+						int[] place1 = Fight.this.attackSide(1, 1);
+						_opponent.superAttack(place1);
+						Fight.this.loseOrNot(1, 1);
+					}
+					break;
+				}
+			event.consume();
+		}
 	}
 	
-	//fades are for visual effect of attack on receiving character
+	// Fades are for visual effect of attack on receiving character
 	public void fadeOut(Node who) {
 		FadeTransition fadeOut = new FadeTransition(Duration.seconds(Constants.MOVE_REG), who);
 		fadeOut.setFromValue(1);
@@ -207,49 +198,47 @@ public class Fight {
 		fadeIn.play();
 	}
 	
-	//used for the computer search
+	// Used for the computer search
 	public boolean moveOrNot() {
-		if(this.distanceBetween(_main.getLoc(), _opponent.getLoc()) >= Constants.MOVE) {
+		if (this.distanceBetween(_main.getLoc(), _opponent.getLoc()) >= Constants.MOVE) {
 			return true;
 		}
 		return false;
 	}
 	
-	//case for computer search if computer ever gets very close to target
+	// Case for computer search if computer ever gets very close to target
 	public boolean veryClose() {
-		if(this.distanceBetween(_main.getLoc(), _opponent.getLoc()) <= Constants.CLOSE) {
+		if (this.distanceBetween(_main.getLoc(), _opponent.getLoc()) <= Constants.CLOSE) {
 			return true;
 		}
 		return false;
 	}
-	
-	//outsourcing the pythagorean math code to one method
+
 	public int distanceBetween(int[] main, int[] opponent) {
 		int distBetween = (int) Math.sqrt(Math.pow(main[0] - opponent[0], 2)
 				+ Math.pow(main[1] - opponent[1], 2));
 		return distBetween;
 	}
 	
-	//calculating points depending on whichCharacter (main or opponent) attacked and whichAttack
+	// Calculating points depending on whichCharacter (main or opponent) attacked and whichAttack
 	public void loseOrNot(int whichChar, int whichAttack) {
-		
 		int distBetween = 0;
 		
 		if (whichChar == 0 && whichAttack == 0) {
 			//main & regular attack
 			distBetween = this.distanceBetween(_main.getLoc(), _opponent.getLoc());
 			
-			if((_mainChakra - Constants.ATTACK_DEDUCT) >= 0) {
+			if (_mainChakra - Constants.ATTACK_DEDUCT >= 0) {
 				_mainChakra -= Constants.ATTACK_DEDUCT;
-			} else if((_mainChakra - Constants.ATTACK_DEDUCT) < 0) {
+			} else {
 				_mainChakra = 0;
 			}
 			
 			if (distBetween <= Constants.CHAR_WIDTH) {
 				
-				if((_opponentChakra - Constants.ROOT_LOWBOUNDY) >= 0) {
+				if (_opponentChakra - Constants.ROOT_LOWBOUNDY >= 0) {
 					_opponentChakra -= Constants.ROOT_LOWBOUNDY;
-				} else if((_opponentChakra - Constants.ROOT_LOWBOUNDY) < 0) {
+				} else {
 					_opponentChakra = 0;
 				}
 	
@@ -257,22 +246,21 @@ public class Fight {
 				this.fadeIn(_opponent.getNode());
 			}
 			_chakras.update(_opponentChakra, _mainChakra);
-		}
-		if (whichChar == 0 && whichAttack == 1) {
-			//main & superAttack
+		} else if (whichChar == 0 && whichAttack == 1) {
+			// main & superAttack
 			distBetween = this.distanceBetween(_main.getLoc(), _opponent.getLoc());
 			
-			if((_mainChakra - Constants.SUPER_DEDUCT) >= 0) {
+			if (_mainChakra - Constants.SUPER_DEDUCT >= 0) {
 				_mainChakra -= Constants.SUPER_DEDUCT;
-			} else if((_mainChakra - Constants.SUPER_DEDUCT) < 0) {
+			} else {
 				_mainChakra = 0;
 			}
 			
 			if (distBetween <= Constants.SCENE_WIDTH) {
 				
-				if((_opponentChakra - Constants.BAR_WIDTH) >= 0) {
+				if (_opponentChakra - Constants.BAR_WIDTH >= 0) {
 					_opponentChakra -= Constants.BAR_WIDTH;
-				} else if((_opponentChakra - Constants.BAR_WIDTH) < 0) {
+				} else {
 					_opponentChakra = 0;
 				}
 			
@@ -281,22 +269,21 @@ public class Fight {
 			}
 			
 			_chakras.update(_opponentChakra, _mainChakra);
-		}
-		if (whichChar == 1 && whichAttack == 0) {
+		} else if (whichChar == 1 && whichAttack == 0) {
 			//opponent & regular attack
 			distBetween = this.distanceBetween(_main.getLoc(), _opponent.getLoc());
 			
-			if((_opponentChakra - Constants.ATTACK_DEDUCT) >= 0) {
+			if (_opponentChakra - Constants.ATTACK_DEDUCT >= 0) {
 				_opponentChakra -= Constants.ATTACK_DEDUCT;
-			} else if((_opponentChakra - Constants.ATTACK_DEDUCT) < 0) {
+			} else {
 				_opponentChakra = 0;
 			}
 			
 			if (distBetween <= Constants.CHAR_WIDTH) {
 				
-				if((_mainChakra - Constants.ROOT_LOWBOUNDY) >= 0) {
+				if(_mainChakra - Constants.ROOT_LOWBOUNDY >= 0) {
 					_mainChakra -= Constants.ROOT_LOWBOUNDY;
-				} else if((_mainChakra - Constants.ROOT_LOWBOUNDY) < 0) {
+				} else {
 					_mainChakra = 0;
 				}
 			
@@ -304,14 +291,13 @@ public class Fight {
 				this.fadeIn(_main.getNode());
 			}
 			_chakras.update(_opponentChakra, _mainChakra);
-		}
-		if (whichChar == 1 && whichAttack == 1) {
+		} else if (whichChar == 1 && whichAttack == 1) {
 			//opponent & superAttack
 			distBetween = this.distanceBetween(_main.getLoc(), _opponent.getLoc());
 			
-			if((_opponentChakra - Constants.SUPER_DEDUCT) >= 0) {
+			if (_opponentChakra - Constants.SUPER_DEDUCT >= 0) {
 				_opponentChakra -= Constants.SUPER_DEDUCT;
-			} else if((_opponentChakra - Constants.SUPER_DEDUCT) < 0) {
+			} else {
 				_opponentChakra = 0;
 			}
 			
@@ -331,7 +317,6 @@ public class Fight {
 	}
 	
 	public void setupOverTimeline(){
-		
 		KeyFrame kf = new KeyFrame(Duration.seconds(1), new OverHandler());
 		_overTimeline = new Timeline(kf);
 		_overTimeline.setCycleCount(Animation.INDEFINITE);
@@ -339,9 +324,6 @@ public class Fight {
 	}
 	
 	private class OverHandler implements EventHandler<ActionEvent> {
-		
-		public OverHandler() {	
-		}
 		
 		@Override 
 		public void handle(ActionEvent event) {
@@ -351,7 +333,7 @@ public class Fight {
 	
 	//game Over if someone hits zero
 	public void gameOver() {
-		if(_mainChakra == 0 || _opponentChakra == 0) {
+		if (_mainChakra == 0 || _opponentChakra == 0) {
 			Label label = new Label("GAME OVER!");
 			label.setTextFill(Color.RED);
 			label.setLayoutX(Constants.PAUSEY);
@@ -363,12 +345,12 @@ public class Fight {
 			label.setFocusTraversable(false);
 			_root.getChildren().add(label);
 			_root.removeEventHandler(KeyEvent.KEY_PRESSED, _keyHandler);
-			if(_otherKeyHandler != null) {	
+			if (_otherKeyHandler != null) {
 				_root.removeEventHandler(KeyEvent.KEY_PRESSED, _otherKeyHandler); 
 			}
 			_opponent.stopAll();
 			_main.stopAll();
-			if(_timeline != null) {
+			if (_timeline != null) {
 				_timeline.stop();
 			}
 			if (_runTimeline != null) {
@@ -389,8 +371,7 @@ public class Fight {
 				label1.setFont(font1);
 				label1.setFocusTraversable(false);
 				_root.getChildren().add(label1);
-			}
-			if (_opponentChakra == 0 && _mainChakra != 0) {
+			} else if (_opponentChakra == 0 && _mainChakra != 0) {
 				Label label2 = null;
 				if(_narutoIs == 0) {
 					label2 = new Label("Naruto Wins!");
@@ -405,8 +386,7 @@ public class Fight {
 				label2.setFont(font1);
 				label2.setFocusTraversable(false);
 				_root.getChildren().add(label2);
-			}
-			if (_opponentChakra == 0 && _mainChakra == 0) {
+			} else if (_opponentChakra == 0 && _mainChakra == 0) {
 				Label label3 = new Label("DRAW!");
 				label3.setTextFill(Color.WHITE);
 				label3.setLayoutX(Constants.DRAW);
@@ -428,7 +408,7 @@ public class Fight {
 					_timeline.pause();
 				}
 			}
-			if(_runTimeline != null) {
+			if (_runTimeline != null) {
 				if (_runTimeline.getStatus() == Status.RUNNING) {
 					_runTimeline.pause();
 				}
@@ -436,12 +416,12 @@ public class Fight {
 			_overTimeline.pause();
 			_main.pauseAll(_pause);
 			_opponent.pauseAll(_pause);
-			if(_otherKeyHandler != null) {	
+			if (_otherKeyHandler != null) {
 				_root.removeEventHandler(KeyEvent.KEY_PRESSED, _otherKeyHandler);
 			}
 			_label.setVisible(true);
 		} else {
-			if(_timeline != null) {
+			if (_timeline != null) {
 				if (_timeline.getStatus() == Status.PAUSED) {
 					_timeline.playFromStart();
 				}
@@ -449,12 +429,12 @@ public class Fight {
 			_overTimeline.playFromStart();
 			_main.pauseAll(_pause);
 			_opponent.pauseAll(_pause);
-			if(_runTimeline != null) {
+			if (_runTimeline != null) {
 				if (_runTimeline.getStatus() == Status.PAUSED) {
 					_runTimeline.playFromStart();
 				}
 			}
-			if(_otherKeyHandler != null) {
+			if (_otherKeyHandler != null) {
 				_root.addEventHandler(KeyEvent.KEY_PRESSED, _otherKeyHandler);
 			}
 			_label.setVisible(false);
@@ -588,10 +568,7 @@ public class Fight {
 	}
 	
 	private class TimeHandler implements EventHandler<ActionEvent> {
-		
-		public TimeHandler() {	
-		}
-		
+
 		@Override 
 		public void handle(ActionEvent event) {
     		boolean moveOrNot = _moveOrNot;

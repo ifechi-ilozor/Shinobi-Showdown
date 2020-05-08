@@ -5,8 +5,10 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-/**LifePoints control displaying attack & superAttack effects through a health
- * bar and a number */
+/**
+ * The LifePoints Class controls displaying attack &
+ * superAttack effects through a health bar and number.
+ */
 
 public class LifePoints {
  
